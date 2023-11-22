@@ -11,7 +11,7 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ outputs.overlays ];
+    overlays = [ outputs.overlays.default ];
   };
     
   time.timeZone = "Europe/Berlin";
