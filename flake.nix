@@ -26,7 +26,7 @@
       inherit nixpkgs;
       inherit nixpkgs-stable;
 
-      overlays = import ./overlays { inherit inputs; };
+      overlays.default = final: prev: (import ./overlays inputs) final prev;
 
       nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

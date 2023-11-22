@@ -1,10 +1,13 @@
-{ inputs, ... }: {
-
-  stable-packages = final: _prev: {
-    stable = import inputs.nixpkgs-stable {
+inputs:
+let
+  # Pass flake inputs to overlay so we can use the sources pinned in flake.lock
+  # instead of having to keep sha256 hashes in each package for src
+  inherit inputs;
+in
+self: super: {
+  stable = import inputs.nixpkgs-stable {
       system = final.system;
       config.allowUnfree = true;
-    };
   };
 }
 
