@@ -103,9 +103,7 @@
     };
   };
 
-  
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # Enable the OpenSSH SSH Agent
   programs.ssh.startAgent = true;
 
   networking.firewall.enable = true;

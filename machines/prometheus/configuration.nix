@@ -150,6 +150,9 @@
       ];
     };
 
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
   # Enable Virtualisation
   virtualisation = {
     # waydroid.enable = true; # Doesnt Start - Networking issues
