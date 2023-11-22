@@ -9,7 +9,7 @@
 
 {
   networking.hostName = "gaia";
-  
+
   nix = {
     gc = {
       automatic = true;
@@ -26,7 +26,7 @@
 
   wsl.enable = true;
   wsl.defaultUser = "berkan";
-  
+
   time.timeZone = "Europe/Berlin";
   # Select internationalisation properties.
   i18n = {
@@ -59,7 +59,7 @@
     libinput.enable = true;
   };
 
-services.xrdp = {
+  services.xrdp = {
     enable = true;
     defaultWindowManager = "startplasma-x11";
     openFirewall = false;

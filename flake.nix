@@ -12,10 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-   NixOS-WSL = {
-	url = "github:nix-community/NixOS-WSL";
-	inputs.nixpkgs.follows = "nixpkgs";
-   };
+    NixOS-WSL = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, lanzaboote, NixOS-WSL, ... } @ inputs:
@@ -41,12 +41,12 @@
       };
 
       nixosConfigurations."gaia" = nixpkgs.lib.nixosSystem {
-	      system = "x86_64-linux";
-	      specialArgs = { inherit outputs; };
-	      modules = [
-		      NixOS-WSL.nixosModules.wsl
-		      ./wsl-configuration.nix
-          ];
+        system = "x86_64-linux";
+        specialArgs = { inherit outputs; };
+        modules = [
+          NixOS-WSL.nixosModules.wsl
+          ./wsl-configuration.nix
+        ];
       };
     };
 }
