@@ -28,20 +28,10 @@
   };
 
   nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
     settings = {
       substituters = [ "https://nix-gaming.cachix.org" ];
       trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
     };
-  };
-
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [ outputs.overlays.stable-packages ];
   };
 
   networking.hostName = "prometheus"; # Define your hostname.
@@ -57,102 +47,17 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-
-    extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "de_DE.UTF-8";
-      LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_NUMERIC = "de_DE.UTF-8";
-      LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
-  };
-  console.useXkbConfig = true; # use xkbOptions in tty.
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    resolutions = [{ x = 1920; y = 1080; }];
-    virtualScreen = { x = 1920; y = 1080; };
-    layout = "de";
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-    displayManager.defaultSession = "plasmawayland";
-    autorun = true;
-    libinput.enable = true;
-  };
-
-  services.xrdp = {
-    enable = true;
-    defaultWindowManager = "startplasma-x11";
-    openFirewall = false;
-  };
-
-  environment.plasma5.excludePackages = [
-    pkgs.libsForQt5.okular
-  ];
-
-  environment.variables = {
-    TERMINAL = "alacritty";
-    EDITOR = "vi";
-  };
-
-  programs.sway.enable = true;
-  xdg.portal.wlr.enable = true;
-  programs.zsh.enable = true;
-
-  system.autoUpgrade = {
-    enable = true;
-    allowReboot = false;
-  };
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.mutableUsers = false;
-  users.users.berkan = {
-    isNormalUser = true;
-    description = "Berkan E.";
-    shell = pkgs.zsh;
-    extraGroups = [ "wireshark" "wheel" "libvirtd" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN Private SSH Key" ];
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     ntfs3g
     exfat
-    vim
     stable.AusweisApp2
-    wget
     ngrok
-    alacritty
     nodejs
-    zsh
-    libsForQt5.plasma-workspace
     nodePackages.prettier
     nodePackages.eslint
-    zsh-powerlevel10k
     virt-manager
     qemu
     looking-glass-client
@@ -161,7 +66,6 @@
     steam
     wireshark
     steam-run
-    git
   ];
 
   ## Gaming
@@ -174,8 +78,6 @@
   # Wireshark
   programs.wireshark.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -185,22 +87,6 @@
   # };
 
   # List services that you want to enable:
-
-  # Enable ClamAV
-  services.clamav = {
-    daemon = {
-      enable = true;
-    };
-    updater = {
-      enable = true;
-      interval = "hourly";
-      frequency = 12;
-    };
-  };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  programs.ssh.startAgent = true;
 
   # Enable Fail2Ban
   services.fail2ban = {
@@ -273,7 +159,6 @@
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ];
   networking.firewall.allowedUDPPorts = [ 24727 ]; # 24727:AusweisApp2
-  networking.firewall.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

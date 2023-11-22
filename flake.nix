@@ -33,7 +33,8 @@
         specialArgs = { inherit outputs; };
         modules = [
           lanzaboote.nixosModules.lanzaboote
-          ./configuration.nix
+          ./machines/all
+          ./machines/prometheus/configuration.nix
           {
             # environment.systemPackages = [ agenix.packages."x86_64-linux".default ]; # Weirdly ${system} is undefined here.
           }
@@ -45,7 +46,8 @@
         specialArgs = { inherit outputs; };
         modules = [
           NixOS-WSL.nixosModules.wsl
-          ./wsl-configuration.nix
+          ./machines/all
+          ./machines/wsl/configuration.nix
         ];
       };
     };

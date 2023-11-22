@@ -1,32 +1,19 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-# NixOS-WSL specific options are documented on the NixOS-WSL repository:
-# https://github.com/nix-community/NixOS-WSL
-
-{ outputs, config, lib, pkgs, ... }:
-
+{ outputs, config, pkgs, lib, ... }:
 {
-  networking.hostName = "gaia";
-
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d -d";
+    nix = { 
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+      };
+      settings.experimental-features = [ "nix-command" "flakes" ];
     };
-    settings.experimental-features = [ "nix-command" "flakes" ];
-  };
 
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [ outputs.overlays.stable-packages ];
   };
-
-  wsl.enable = true;
-  wsl.defaultUser = "berkan";
-
+    
   time.timeZone = "Europe/Berlin";
   # Select internationalisation properties.
   i18n = {
@@ -90,14 +77,12 @@
     description = "Berkan E.";
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN Private SSH Key" ];
-    packages = with pkgs; [ vscode ];
   };
 
   environment.systemPackages = with pkgs; [
     vim
     wget
     alacritty
-    nodejs
     zsh
     libsForQt5.plasma-workspace
     zsh-powerlevel10k
@@ -116,18 +101,11 @@
     };
   };
 
+  
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
   networking.firewall.enable = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
 }
-
