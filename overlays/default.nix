@@ -6,7 +6,7 @@ let
 in
 self: super: {
   stable = import inputs.nixpkgs-stable {
-      system = final.system;
+      system = self.system;
       config.allowUnfree = true;
   };
 }
