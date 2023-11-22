@@ -6,7 +6,8 @@
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
-      nixPath = [ "nixpkgs=${nixpkgs}" ]; # Make Overlays Global
+    
+      nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
       settings.experimental-features = [ "nix-command" "flakes" ];
     };
 
