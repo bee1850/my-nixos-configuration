@@ -11,9 +11,14 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+   NixOS-WSL = {
+	url = "github:nix-community/NixOS-WSL";
+	inputs.nixpkgs.follows = "nixpkgs";
+   };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, lanzaboote, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, lanzaboote, NixOS-WSL, ... } @ inputs:
     let
       inherit (self) outputs;
     in
@@ -35,5 +40,14 @@
         ];
       };
 
+      nixosConfigurations."gaia" = nixpkgs.lib.nixosSystem {
+	      system = "x86_64-linux";
+	      specialArgs = { inherit outputs; };
+	      modules = [
+		      NixOS-WSL.nixosModules.wsl
+		      ./wsl-configuration.nix
+          ];
+      };
     };
 }
+
