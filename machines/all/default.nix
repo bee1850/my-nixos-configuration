@@ -6,6 +6,7 @@
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
+      nixPath = [ "nixpkgs=${nixpkgs}" ]; # Make Overlays Global
       settings.experimental-features = [ "nix-command" "flakes" ];
     };
 
