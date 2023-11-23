@@ -1,21 +1,19 @@
 { outputs, config, pkgs, lib, ... }:
 {
-    nix = { 
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
-      };
-    
-      nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
-      settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
     };
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [ outputs.overlays.default ];
   };
-    
+
   time.timeZone = "Europe/Berlin";
   # Select internationalisation properties.
   i18n = {
@@ -76,7 +74,9 @@
   hardware.pulseaudio.enable = true;
 
   users.users.berkan = {
+    isNormalUser = true;
     description = "Berkan E.";
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN Private SSH Key" ];
   };
@@ -85,6 +85,7 @@
     vim
     wget
     alacritty
+    neovim
     zsh
     libsForQt5.plasma-workspace
     zsh-powerlevel10k

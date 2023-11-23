@@ -23,7 +23,7 @@
       enable = true;
       pkiBundle = "/etc/secureboot";
     };
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ "exfat" "ntfs" ];
     loader.efi.canTouchEfiVariables = true;
   };
 
@@ -85,6 +85,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" ]; # Enable ‘sudo’ for the user.
 
   # List services that you want to enable:
 

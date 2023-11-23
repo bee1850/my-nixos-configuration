@@ -6,8 +6,8 @@ let
 in
 self: super: {
   stable = import inputs.nixpkgs-stable {
-      system = self.system;
-      config.allowUnfree = true;
+    system = self.system;
+    config.allowUnfree = true;
   };
 }
 
