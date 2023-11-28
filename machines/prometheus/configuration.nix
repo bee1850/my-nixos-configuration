@@ -90,6 +90,12 @@
 
   # List services that you want to enable:
 
+  # Mullvad VPN Daemon
+  services.mullvad-vpn = {
+    enable = true;
+    enableExcludeWrapper = false;
+  };
+
   # Enable Fail2Ban
   services.fail2ban = {
     enable = true;
