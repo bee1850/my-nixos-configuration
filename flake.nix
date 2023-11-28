@@ -26,6 +26,8 @@
       inherit nixpkgs;
       inherit nixpkgs-stable;
 
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+
       overlays.default = final: prev: (import ./overlays inputs) final prev;
 
       nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem {
