@@ -54,17 +54,14 @@
     ntfs3g
     exfat
     stable.AusweisApp2
-    ngrok
     nodejs
     nodePackages.prettier
     nodePackages.eslint
     virt-manager
     qemu
-    looking-glass-client
     lutris
     protonup-ng
     steam
-    wireshark
     steam-run
   ];
 
