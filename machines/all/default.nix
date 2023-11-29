@@ -104,6 +104,40 @@
     };
   };
 
+  # Enable Local Prometheus Service and Exporter
+  services.prometheus = {
+    enable = true;
+    port = 9001;
+    scrapeConfigs = [
+      {
+        job_name = "prometheus";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+          }
+        ];
+        scrape_interval = "3s";
+      }
+    ];
+    exporters.node = {
+      enable = true;
+      enabledCollectors = [ "systemd" ];
+      port = 9002;
+    };
+  };
+
+  # Enable Local Grafana Service
+  services.grafana = {
+    enable = true;
+    settings = {
+      server = {
+        http_port = 2342;
+        http_addr = "127.0.0.1";
+      };
+    };
+  };
+
+
   # Enable the OpenSSH SSH Agent
   programs.ssh.startAgent = true;
 

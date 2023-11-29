@@ -116,10 +116,25 @@
           services.pgadmin.enable = true;
           services.pgadmin.initialEmail = "bee1850@thi.de";
           services.pgadmin.initialPasswordFile = pkgs.writeText "pgadminPW" ''
-            admin
+            adminadmin
           '';
+          services.prometheus.exporters.postgres.enable = true;
+          services.prometheus.exporters.postgres.port = 9003;
         };
     };
+
+  # Add Prometheus Target for postgres Database
+  services.prometheus.scrapeConfigs = [
+    {
+      job_name = "postgres";
+      static_configs = [
+        {
+          targets = [ "127.0.0.1:${toString config.containers.database.config.services.prometheus.exporters.postgres.port}" ];
+        }
+      ];
+    }
+  ];
+
 
   containers.adguard-home =
     {
