@@ -30,8 +30,19 @@
   nix = {
     settings = {
       substituters = [ "https://nix-gaming.cachix.org" ];
-      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
+      trusted-substituters = [ "ssh-ng://wslbuilder" ];
+      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "ssh-ng://wslbuilder:Mmn1kr5Eh8TtB6NcvUzUaXbFpb3BF560OCLWAOqkMA4=" ];
     };
+    buildMachines = [{
+      hostName = "wslbuilder";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      maxJobs = 1;
+      speedFactor = 2;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
+      mandatoryFeatures = [ ];
+    }];
+    distributedBuilds = false; #true;
   };
 
   networking.hostName = "prometheus"; # Define your hostname.
@@ -102,35 +113,46 @@
 
   containers.database =
     {
+      restartIfChanged = true;
       config =
         { config, pkgs, ... }:
         {
+          system.stateVersion = "23.05";
           environment.shellAliases = {
             psql-login = "sudo -u postgres psql postgres";
           };
-          system.stateVersion = "23.05";
+
+          nixpkgs.config.allowUnfree = true;
+
+          services.mongodb = {
+            enable = true;
+            enableAuth = true;
+            bind_ip = "0.0.0.0";
+            initialRootPassword = "root";
+          };
+
           services.postgresql.enable = true;
           services.pgadmin.enable = true;
           services.pgadmin.initialEmail = "bee1850@thi.de";
           services.pgadmin.initialPasswordFile = pkgs.writeText "pgadminPW" ''
             adminadmin
           '';
-          services.prometheus.exporters.postgres.enable = true;
-          services.prometheus.exporters.postgres.port = 9003;
+          #services.prometheus.exporters.postgres.enable = true;
+          #services.prometheus.exporters.postgres.port = 9003;
         };
     };
 
   # Add Prometheus Target for postgres Database
-  services.prometheus.scrapeConfigs = [
-    {
-      job_name = "postgres";
-      static_configs = [
-        {
-          targets = [ "127.0.0.1:${toString config.containers.database.config.services.prometheus.exporters.postgres.port}" ];
-        }
-      ];
-    }
-  ];
+  #services.prometheus.scrapeConfigs = [
+  #  {
+  #    job_name = "postgres";
+  #    static_configs = [
+  #      {
+  #        targets = [ "127.0.0.1:${toString config.containers.database.config.services.prometheus.exporters.postgres.port}" ];
+  #      }
+  #    ];
+  #  }
+  #];
 
 
   containers.adguard-home =
@@ -180,8 +202,15 @@
     docker.enable = false;
   };
   # Open ports in the firewall.
+  # Good-To-Know Ports
+  ## 24727:AusweisApp2
+  ## 22: SSH
+  ## 53: DNS
+  ## 80/443: http/https
+  ## 21: FTP
+
   # networking.firewall.allowedTCPPorts = [ ];
-  networking.firewall.allowedUDPPorts = [ 24727 ]; # 24727:AusweisApp2
+  networking.firewall.allowedUDPPorts = [ 24727 ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

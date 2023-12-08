@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     # agenix.url = "github:ryantm/agenix";
 
@@ -30,6 +30,7 @@
 
       overlays.default = final: prev: (import ./overlays inputs) final prev;
 
+      # Laptop
       nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit outputs; };
@@ -43,7 +44,8 @@
         ];
       };
 
-      nixosConfigurations."morpheus" = nixpkgs.lib.nixosSystem {
+      # WSL
+      nixosConfigurations."gaia" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit outputs; };
         modules = [
