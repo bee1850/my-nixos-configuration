@@ -8,10 +8,16 @@
 { outputs, config, lib, pkgs, ... }:
 
 {
-  networking.hostName = "gaia";
+  networking.hostName = "morpheus";
 
   wsl.enable = true;
   wsl.defaultUser = "berkan";
+
+  services.openssh.enable = true;
+  nix.settings.trusted-users = [ "berkan" "root" "nixremote" "@wheel" ];
+  nix.extraOptions = ''
+    secret-key-files = /root/cache-priv-key.pem
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
