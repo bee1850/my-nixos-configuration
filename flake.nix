@@ -30,6 +30,7 @@
 
       overlays.default = final: prev: (import ./overlays inputs) final prev;
 
+      # Laptop
       nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit outputs; };
@@ -43,6 +44,7 @@
         ];
       };
 
+      # WSL
       nixosConfigurations."gaia" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit outputs; };
