@@ -30,6 +30,17 @@
 
       overlays.default = final: prev: (import ./overlays inputs) final prev;
 
+      # Tower
+      nixosConfigurations."zeus" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit outputs; };
+        modules = [
+          lanzaboote.nixosModules.lanzaboote
+          ./machines/all
+          ./machines/zeus/configuration.nix
+        ];
+      };
+
       # Laptop
       nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
