@@ -56,7 +56,7 @@
       };
 
       # WSL
-      nixosConfigurations."gaia" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."morpheus" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit outputs; };
         modules = [
