@@ -30,8 +30,8 @@
   nix = {
     settings = {
       substituters = [ "https://nix-gaming.cachix.org" ];
-      trusted-substituters = [ "ssh-ng://wslbuilder" ];
-      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "ssh-ng://wslbuilder:Mmn1kr5Eh8TtB6NcvUzUaXbFpb3BF560OCLWAOqkMA4=" ];
+      #trusted-substituters = [ "ssh-ng://wslbuilder" ];
+      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ]; #"ssh-ng://wslbuilder:Mmn1kr5Eh8TtB6NcvUzUaXbFpb3BF560OCLWAOqkMA4=" ];
     };
     buildMachines = [{
       hostName = "wslbuilder";
