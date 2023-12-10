@@ -67,7 +67,7 @@
       ];
     };
 
-   networking.firewall.allowedTCPPorts = [ "5432" "5050" "27017" ];
+   networking.firewall.allowedTCPPorts = [ 5432 5050 27017 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
