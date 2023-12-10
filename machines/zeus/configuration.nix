@@ -39,8 +39,6 @@
     amdvlk
   ];
 
-
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -55,6 +53,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    ntfs3g
+    exfat
     clinfo
   ];
 
@@ -74,8 +74,6 @@
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
