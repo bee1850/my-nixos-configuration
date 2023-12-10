@@ -72,19 +72,28 @@
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
   users.users.berkan = {
     isNormalUser = true;
     description = "Berkan E.";
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN Private SSH Key" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjO8XQy9w6Yas1DaTq+4vhWiFeyz6uZcngaHkIeUwf8"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICjtJi8Rbvbe0xEAhMRTZj7f8mOtpBtT5VJj+QB5dDSg"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     vim
+    direnv
     wget
     alacritty
+    rrsync
     neovim
     zsh
     libsForQt5.plasma-workspace
