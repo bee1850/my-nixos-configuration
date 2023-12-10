@@ -58,6 +58,17 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  services.xserver.libinput.enable = true;
+
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "startplasma-x11";
+    openFirewall = false;
+  };
+
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

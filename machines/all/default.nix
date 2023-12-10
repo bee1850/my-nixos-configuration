@@ -36,20 +36,13 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    resolutions = [{ x = 1920; y = 1080; }];
+    resolutions = [{ x = 1920; y = 1080; } { x = 3840; y = 2160; }];
     virtualScreen = { x = 1920; y = 1080; };
     layout = "de";
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
     displayManager.defaultSession = "plasmawayland";
     autorun = true;
-    libinput.enable = true;
-  };
-
-  services.xrdp = {
-    enable = true;
-    defaultWindowManager = "startplasma-x11";
-    openFirewall = false;
   };
 
   environment.plasma5.excludePackages = [
@@ -72,9 +65,6 @@
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
   users.users.berkan = {
     isNormalUser = true;
