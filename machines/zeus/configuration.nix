@@ -17,6 +17,7 @@
       systemd-boot.enable = lib.mkForce false;
       efi.canTouchEfiVariables = true;
     };
+    kernelParams = [ "intel_iommu=on" "iommu=pt" ];
     loader.timeout = 0;
     lanzaboote = {
       enable = true;
@@ -29,33 +30,17 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
-
-  hardware.opengl.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-    amdvlk
-  ];
+  services.xserver.virtualScreen = { x = 3840; y = 2160; };
+  services.xserver.displayManager.defaultSession = lib.mkForce "plasma";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.berkan = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-    ];
-  };
+  # Bservices.printing.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     ntfs3g
     exfat
-    clinfo
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
