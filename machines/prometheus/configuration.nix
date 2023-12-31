@@ -125,37 +125,6 @@
     bantime = "1h";
   };
 
-  containers.database =
-    {
-      restartIfChanged = true;
-      config =
-        { config, pkgs, ... }:
-        {
-          system.stateVersion = "23.05";
-          environment.shellAliases = {
-            psql-login = "sudo -u postgres psql postgres";
-          };
-
-          nixpkgs.config.allowUnfree = true;
-
-          services.mongodb = {
-            enable = true;
-            enableAuth = true;
-            bind_ip = "0.0.0.0";
-            initialRootPassword = "root";
-          };
-
-          services.postgresql.enable = true;
-          services.pgadmin.enable = true;
-          services.pgadmin.initialEmail = "bee1850@thi.de";
-          services.pgadmin.initialPasswordFile = pkgs.writeText "pgadminPW" ''
-            adminadmin
-          '';
-          #services.prometheus.exporters.postgres.enable = true;
-          #services.prometheus.exporters.postgres.port = 9003;
-        };
-    };
-
   # Add Prometheus Target for postgres Database
   #services.prometheus.scrapeConfigs = [
   #  {
