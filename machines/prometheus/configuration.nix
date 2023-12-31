@@ -77,6 +77,9 @@
     exfat
     stable.AusweisApp2
     nodejs
+    wineWowPackages.stable
+    wineWowPackages.waylandFull
+    winetricks
     nodePackages.prettier
     nodePackages.eslint
     virt-manager
