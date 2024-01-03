@@ -17,7 +17,7 @@
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
     bootspec.enable = true;
-    loader.timeout = 0;
+    loader.timeout = 5;
     lanzaboote = {
       configurationLimit = 3;
       enable = true;
@@ -49,7 +49,7 @@
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  networking.nameservers = [ "127.0.0.1" ]; #"1.1.1.1" "8.8.8.8" ];
+  networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -75,6 +75,7 @@
   environment.systemPackages = with pkgs; [
     ntfs3g
     exfat
+    qbittorrent
     stable.AusweisApp2
     nodejs
     wineWowPackages.stable
@@ -108,8 +109,19 @@
   #   enableSSHSupport = true;
   # };
 
-  users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" ]; # Enable ‘sudo’ for the user.
-
+  users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+  users.groups = {
+    dockeruser = {
+      gid = 1005;
+    };
+  };
+  users.users.dockeruser = {
+    
+    isNormalUser = true;
+    shell = pkgs.bash;
+    uid = 1005;
+    group = "dockeruser";
+  };
   # List services that you want to enable:
 
   # Mullvad VPN Daemon
@@ -136,21 +148,6 @@
   #    ];
   #  }
   #];
-
-
-  containers.adguard-home =
-    {
-      config =
-        { config, pkgs, ... }:
-        {
-          system.stateVersion = "23.05";
-          services.adguardhome = {
-            enable = true;
-            openFirewall = true;
-          };
-        };
-      autoStart = true;
-    };
 
   containers.minecraft-server =
     {
