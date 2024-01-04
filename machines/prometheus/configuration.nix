@@ -110,17 +110,26 @@
   # };
 
   users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+
+
+  services.xserver.displayManager.sddm.settings = {
+    Users = {
+      HideUsers = "dockeruser";
+    };
+  };
+
   users.groups = {
     dockeruser = {
       gid = 1005;
     };
   };
   users.users.dockeruser = {
-    
+
     isNormalUser = true;
+    createHome = lib.mkForce false;
     shell = pkgs.bash;
     uid = 1005;
-    group = "dockeruser";
+    group = lib.mkForce "dockeruser";
   };
   # List services that you want to enable:
 
