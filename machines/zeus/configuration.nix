@@ -18,7 +18,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelParams = [ "intel_iommu=on" "iommu=pt" ];
-    loader.timeout = 0;
+    loader.timeout = 5;
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
