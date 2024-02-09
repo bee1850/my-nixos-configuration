@@ -116,8 +116,8 @@
     Users = {
       HideUsers = "dockeruser";
     };
-  };
 
+  };
   users.groups = {
     dockeruser = {
       gid = 1005;
@@ -188,7 +188,7 @@
   virtualisation = {
     # waydroid.enable = true; # Doesnt Start - Networking issues
     libvirtd.enable = true;
-    docker.enable = true;
+    #docker.enable = true;
   };
   # Open ports in the firewall.
   # Good-To-Know Ports
