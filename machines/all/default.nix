@@ -38,7 +38,7 @@
     enable = true;
     resolutions = [{ x = 1920; y = 1080; }];
     virtualScreen = { x = 1920; y = 1080; };
-    layout = "de";
+    xkb.layout = "de";
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
     displayManager.defaultSession = "plasmawayland";
