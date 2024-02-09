@@ -36,7 +36,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    resolutions = [{ x = 1920; y = 1080; } { x = 3840; y = 2160; }];
+    resolutions = [{ x = 1920; y = 1080; }];
     virtualScreen = { x = 1920; y = 1080; };
     layout = "de";
     displayManager.sddm.enable = true;
