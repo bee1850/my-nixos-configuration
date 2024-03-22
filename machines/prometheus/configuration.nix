@@ -89,6 +89,7 @@
     protonup-ng
     steam
     steam-run
+    toybox
   ];
 
   ## Gaming
@@ -111,13 +112,16 @@
 
   users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
 
-
+  services.fwupd.enable = true;
   services.xserver.displayManager.sddm.settings = {
     Users = {
       HideUsers = "dockeruser";
     };
 
   };
+
+  users.extraGroups.vboxusers.members = [ "berkan" ];
+
   users.groups = {
     dockeruser = {
       gid = 1005;
@@ -187,6 +191,7 @@
   # Enable Virtualisation
   virtualisation = {
     # waydroid.enable = true; # Doesnt Start - Networking issues
+    virtualbox.host.enable = true;
     libvirtd.enable = true;
     #docker.enable = true;
   };
