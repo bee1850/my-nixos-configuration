@@ -67,9 +67,9 @@
       };
 
       # NUC
-      nixosConfigurations."nuc" = nixpkgs.lib.nixosSystem {
-        pkgs = nixpkgs-stable;
+      nixosConfigurations."nuc" = nixpkgs-stable.lib.nixosSystem rec {
         system = "x86_64-linux";
+
         specialArgs = { inherit outputs; };
         modules = [
           ./machines/all
@@ -78,4 +78,5 @@
       };
     };
 }
+
 

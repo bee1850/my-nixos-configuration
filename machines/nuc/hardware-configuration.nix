@@ -26,6 +26,21 @@
       fsType = "vfat";
     };
 
+  fileSystems."/mnt/intenso" =
+    {
+      device = "/dev/disk/by-uuid/c0fea935-cdb5-4bb3-9cde-9800a570cd4f";
+      fsType = "ext4";
+      options = [
+        "users"
+        "async"
+        "relatime"
+        "rw"
+        "x-gvfs-show"
+        "nofail"
+        "auto"
+      ];
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
