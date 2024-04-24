@@ -65,6 +65,18 @@
           ./machines/wsl/configuration.nix
         ];
       };
+
+      # NUC
+      nixosConfigurations."nuc" = nixpkgs-stable.lib.nixosSystem rec {
+        system = "x86_64-linux";
+
+        specialArgs = { inherit outputs; };
+        modules = [
+          ./machines/all
+          ./machines/nuc/configuration.nix
+        ];
+      };
     };
 }
+
 
