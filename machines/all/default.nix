@@ -39,10 +39,13 @@
     resolutions = [{ x = 1920; y = 1080; }];
     virtualScreen = { x = 1920; y = 1080; };
     xkb.layout = "de";
-    displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
-    displayManager.defaultSession = "plasmawayland";
     autorun = true;
+  };
+
+  services.displayManager = {
+    sddm.enable = true;
+    defaultSession = "plasmawayland";
   };
 
   environment.plasma5.excludePackages = [

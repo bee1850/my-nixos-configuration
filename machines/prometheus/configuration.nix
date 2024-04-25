@@ -113,7 +113,7 @@
   users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
 
   services.fwupd.enable = true;
-  services.xserver.displayManager.sddm.settings = {
+  services.displayManager.sddm.settings = {
     Users = {
       HideUsers = "dockeruser";
     };
