@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
 
-    # agenix.url = "github:ryantm/agenix";
+    agenix.url = "github:ryantm/agenix";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
@@ -18,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, lanzaboote, NixOS-WSL, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, agenix, lanzaboote, NixOS-WSL, ... } @ inputs:
     let
       inherit (self) outputs;
     in
@@ -42,7 +42,7 @@
       };
 
       # Laptop
-      nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = { inherit outputs; };
         modules = [
@@ -50,7 +50,7 @@
           ./machines/all
           ./machines/prometheus/configuration.nix
           {
-            # environment.systemPackages = [ agenix.packages."x86_64-linux".default ]; # Weirdly ${system} is undefined here.
+            environment.systemPackages = [ agenix.packages."x86_64-linux".default ];
           }
         ];
       };
