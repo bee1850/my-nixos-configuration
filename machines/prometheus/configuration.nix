@@ -58,7 +58,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   services.xrdp = {
     enable = true;
