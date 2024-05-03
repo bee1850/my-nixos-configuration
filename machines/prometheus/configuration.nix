@@ -66,6 +66,11 @@
     openFirewall = false;
   };
 
+  services.displayManager = {
+    sddm.enable = true;
+    defaultSession = "plasmawayland";
+  };
+
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot

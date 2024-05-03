@@ -6,6 +6,7 @@
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
+    optimise.automatic = true; # Runs daily at 3:45 AM
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
@@ -41,11 +42,6 @@
     xkb.layout = "de";
     desktopManager.plasma5.enable = true;
     autorun = true;
-  };
-
-  services.displayManager = {
-    sddm.enable = true;
-    defaultSession = "plasmawayland";
   };
 
   environment.plasma5.excludePackages = [
