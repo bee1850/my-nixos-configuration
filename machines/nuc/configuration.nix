@@ -143,11 +143,14 @@
     ];
   };
 
+  services.nginx.virtualHosts."192.168.0.107".listen = [{ addr = "127.0.0.1"; port = 7654; }];
+
   services.adguardhome = {
     enable = true;
     mutableSettings = true;
     openFirewall = true;
     settings.bind_port = 9001;
+    settings.bind_host = "192.168.0.107";
   };
 
   environment.systemPackages = with pkgs; [
