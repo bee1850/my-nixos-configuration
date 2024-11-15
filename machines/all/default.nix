@@ -62,6 +62,10 @@
     allowReboot = false;
   };
 
+  services.tailscale = {
+    enable = true;
+    extraDaemonFlags = [ "--no-logs-no-support" ];
+  };
   hardware.pulseaudio.enable = true;
 
   users.users.berkan = {
