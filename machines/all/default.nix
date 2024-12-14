@@ -66,7 +66,7 @@
     enable = true;
     extraDaemonFlags = [ "--no-logs-no-support" ];
   };
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = lib.mkForce false;
 
   users.users.berkan = {
     isNormalUser = true;
