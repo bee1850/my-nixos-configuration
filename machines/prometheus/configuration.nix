@@ -92,6 +92,7 @@
     qemu
     lutris
     protonup-ng
+    anydesk
     steam
     steam-run
     toybox
