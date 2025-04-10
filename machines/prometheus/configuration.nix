@@ -71,7 +71,6 @@
     defaultSession = "plasmawayland";
   };
 
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
@@ -115,6 +114,11 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  users.users.berrin = {
+    isNormalUser = true;
+    description = "Berrin Erkasap";
+  };
 
   users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
 
