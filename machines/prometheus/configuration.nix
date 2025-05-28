@@ -82,13 +82,12 @@
     qbittorrent
     stable.AusweisApp2
     nodejs
+    d2
     wineWowPackages.stable
     wineWowPackages.waylandFull
     winetricks
     nodePackages.prettier
     nodePackages.eslint
-    virt-manager
-    qemu
     lutris
     protonup-ng
     anydesk
@@ -160,6 +159,7 @@
     bantime = "1h";
   };
 
+
   # Add Prometheus Target for postgres Database
   #services.prometheus.scrapeConfigs = [
   #  {
@@ -200,10 +200,7 @@
 
   # Enable Virtualisation
   virtualisation = {
-    # waydroid.enable = true; # Doesnt Start - Networking issues
     virtualbox.host.enable = true;
-    libvirtd.enable = true;
-    #docker.enable = true;
   };
   # Open ports in the firewall.
   # Good-To-Know Ports
