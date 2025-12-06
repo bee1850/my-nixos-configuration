@@ -107,41 +107,6 @@
     openFirewall = true;
   };
 
-  environment.etc."nextcloud-admin-pass".text = "ZozB^Sh9dw#cgP@";
-  services.nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud28;
-    hostName = "192.168.0.107";
-    maxUploadSize = "10G";
-    configureRedis = true;
-    datadir = "/mnt/intenso/nextcloud";
-    config.adminpassFile = "/etc/nextcloud-admin-pass";
-    extraOptions.enabledPreviewProviders = [
-      "OC\\Preview\\BMP"
-      "OC\\Preview\\GIF"
-      "OC\\Preview\\JPEG"
-      "OC\\Preview\\Krita"
-      "OC\\Preview\\MarkDown"
-      "OC\\Preview\\MP3"
-      "OC\\Preview\\OpenDocument"
-      "OC\\Preview\\PNG"
-      "OC\\Preview\\TXT"
-      "OC\\Preview\\XBitmap"
-      "OC\\Preview\\HEIC"
-      "OC\\Preview\\Movie"
-    ];
-  };
-
-  services.nginx.virtualHosts."192.168.0.107".listen = [{ addr = "127.0.0.1"; port = 7654; }];
-
-  services.adguardhome = {
-    enable = true;
-    mutableSettings = true;
-    openFirewall = true;
-    port = 9001;
-    host = "192.168.0.107";
-  };
-
   environment.systemPackages = with pkgs; [
     wireguard-tools
     tailscale

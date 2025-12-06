@@ -74,6 +74,8 @@
         modules = [
           ./machines/all
           ./machines/nuc/configuration.nix
+          ./services/grafana.nix
+	  ./services/languagetool.nix
         ];
       };
     };
