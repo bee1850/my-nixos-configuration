@@ -71,7 +71,6 @@
     defaultSession = "plasmawayland";
   };
 
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
@@ -83,13 +82,12 @@
     qbittorrent
     stable.AusweisApp2
     nodejs
+    d2
     wineWowPackages.stable
     wineWowPackages.waylandFull
     winetricks
     nodePackages.prettier
     nodePackages.eslint
-    virt-manager
-    qemu
     lutris
     protonup-ng
     anydesk
@@ -115,6 +113,11 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  users.users.berrin = {
+    isNormalUser = true;
+    description = "Berrin Erkasap";
+  };
 
   users.users.berkan.extraGroups = [ "wireshark" "libvirtd" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
 
@@ -156,6 +159,7 @@
     bantime = "1h";
   };
 
+
   # Add Prometheus Target for postgres Database
   #services.prometheus.scrapeConfigs = [
   #  {
@@ -196,10 +200,7 @@
 
   # Enable Virtualisation
   virtualisation = {
-    # waydroid.enable = true; # Doesnt Start - Networking issues
     virtualbox.host.enable = true;
-    libvirtd.enable = true;
-    #docker.enable = true;
   };
   # Open ports in the firewall.
   # Good-To-Know Ports
