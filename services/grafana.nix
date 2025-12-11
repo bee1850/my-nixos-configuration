@@ -23,7 +23,7 @@
           ];
           scrape_interval = "15s";
         }
-      ];
+        ];
 
       exporters.node = {
         enable = true;
