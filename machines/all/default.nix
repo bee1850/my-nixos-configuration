@@ -88,34 +88,6 @@
     };
   };
 
-  # Enable Local Prometheus Service and Exporter
-  services.prometheus = {
-      scrapeConfigs = [
-        {
-          job_name = "node";
-          static_configs = [
-            {
-              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-            }
-          ];
-          scrape_interval = "3s";
-        }
-      ];
-
-      exporters.node = {
-        enable = true;
-        port = 9002;
-
-        # Updated list of enabled collectors
-        enabledCollectors = [
-          "ethtool"
-          "softirqs"
-          "systemd"
-          "tcpstat"
-          "wifi" # May or may not produce metrics depending on system/NixOS implementation
-        ];
-      };
-  };
 
   # Enable the OpenSSH SSH Agent
   programs.ssh.startAgent = true;

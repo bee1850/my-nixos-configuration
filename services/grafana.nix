@@ -1,26 +1,33 @@
 { outputs, config, pkgs, lib, ... }:
 {
-  containers.prometheus = {
-    autoStart = true;
-    bindMounts."/secrets" = { hostPath = "/home/berkan/secrets"; isReadOnly = true; };
-    config = { config, pkgs, lib, ... }: {
-      services.prometheus = {
+  services.prometheus = {
         enable = true;
         port = 7776;
         globalConfig.scrape_interval = "15s";
         scrapeConfigs = [
-          {
-            job_name = "prometheus";
-            static_configs = [{ targets = [ "192.168.0.107:7776" ]; }];
-          }
+        {
+          job_name = "node";
+          static_configs = [
+            {
+              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            }
+          ];
+          scrape_interval = "3s";
+        }
+      ];
+
+      exporters.node = {
+        enable = true;
+        port = 19002;
+        # Updated list of enabled collectors
+        enabledCollectors = [
+          "ethtool"
+          "softirqs"
+          "systemd"
+          "tcpstat"
+          "wifi" # May or may not produce metrics depending on system/NixOS implementation
         ];
-        exporters = {
-          nodeExporter.enable = true;
-          nodeExporter.port = 9100;
-        };
       };
-      system.stateVersion = "24.11";
-    };
   };
 
   services.grafana = {
