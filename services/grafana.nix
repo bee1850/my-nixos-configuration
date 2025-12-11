@@ -18,7 +18,7 @@
           job_name = "docker";
           static_configs = [
             {
-              targets = [ toString config.virtualisation.docker.daemon.settings."metrics-addr" ];
+              targets = [ config.virtualisation.docker.daemon.settings."metrics-addr" ];
             }
           ];
           scrape_interval = "15s";
