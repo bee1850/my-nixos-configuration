@@ -44,6 +44,7 @@
         modules = [
           ./machines/all
           ./machines/nuc/configuration.nix
+          ./services/grafana.nix # Enable grafana and Prometheus service
         ];
       };
     };
