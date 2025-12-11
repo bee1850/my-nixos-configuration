@@ -52,6 +52,9 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
+    daemon.settings = {
+      "metrics-addr" = "127.0.0.1:9323"
+    };
     autoPrune = {
       enable = true;
       flags = [ "-all" ];
