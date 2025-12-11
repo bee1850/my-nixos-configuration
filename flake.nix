@@ -3,14 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     agenix.url = "github:ryantm/agenix";
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     NixOS-WSL = {
       url = "github:nix-community/NixOS-WSL";
@@ -18,7 +13,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, agenix, lanzaboote, NixOS-WSL, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, agenix, NixOS-WSL, ... } @ inputs:
     let
       inherit (self) outputs;
     in
@@ -29,31 +24,6 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
       overlays.default = final: prev: (import ./overlays inputs) final prev;
-
-      # Tower
-      nixosConfigurations."zeus" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit outputs; };
-        modules = [
-          lanzaboote.nixosModules.lanzaboote
-          ./machines/all
-          ./machines/zeus/configuration.nix
-        ];
-      };
-
-      # Laptop
-      nixosConfigurations."prometheus" = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = { inherit outputs; };
-        modules = [
-          lanzaboote.nixosModules.lanzaboote
-          ./machines/all
-          ./machines/prometheus/configuration.nix
-          {
-            environment.systemPackages = [ agenix.packages."x86_64-linux".default ];
-          }
-        ];
-      };
 
       # WSL
       nixosConfigurations."morpheus" = nixpkgs.lib.nixosSystem {
@@ -74,8 +44,6 @@
         modules = [
           ./machines/all
           ./machines/nuc/configuration.nix
-          ./services/grafana.nix
-	  ./services/languagetool.nix
         ];
       };
     };

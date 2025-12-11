@@ -27,12 +27,6 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
 
-  services.xrdp = {
-    enable = true;
-    defaultWindowManager = "startplasma-x11";
-    openFirewall = true;
-  };
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
@@ -48,7 +42,6 @@
     };
   };
   users.users.dockeruser = {
-
     isNormalUser = true;
     createHome = lib.mkForce false;
     shell = pkgs.bash;
@@ -77,9 +70,11 @@
 
   services.samba = {
     enable = true;
-    securityType = "user";
     openFirewall = true;
-    shares = {
+    settings = {
+      global = {
+        security = "user";
+      };
       intenso = {
         path = "/mnt/intenso/";
         browseable = "yes";
@@ -100,11 +95,6 @@
       };
     };
 
-  };
-
-  services.samba-wsdd = {
-    enable = true;
-    openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [

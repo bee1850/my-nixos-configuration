@@ -32,29 +32,13 @@
     };
   };
 
-  console.useXkbConfig = true; # use xkbOptions in tty.
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    resolutions = [{ x = 1920; y = 1080; }];
-    virtualScreen = { x = 1920; y = 1080; };
-    xkb.layout = "de";
-    desktopManager.plasma5.enable = true;
-    autorun = true;
-  };
-
-  environment.plasma5.excludePackages = [
-    pkgs.libsForQt5.okular
-  ];
+  console.useXkbConfig = true; # use xkbOptions in tty
 
   environment.variables = {
     TERMINAL = "alacritty";
     EDITOR = "vi";
   };
 
-  programs.sway.enable = true;
-  xdg.portal.wlr.enable = true;
   programs.zsh.enable = true;
 
   system.autoUpgrade = {
@@ -66,7 +50,7 @@
     enable = true;
     extraDaemonFlags = [ "--no-logs-no-support" ];
   };
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   users.users.berkan = {
     isNormalUser = true;
@@ -88,7 +72,6 @@
     rrsync
     neovim
     zsh
-    libsForQt5.plasma-workspace
     zsh-powerlevel10k
     git
   ];
@@ -100,44 +83,39 @@
     };
     updater = {
       enable = true;
-      interval = "hourly";
-      frequency = 12;
+      interval = "weekly";
+      frequency = 2;
     };
   };
 
   # Enable Local Prometheus Service and Exporter
-  #services.prometheus = {
-  #  enable = true;
-  #  port = 9001;
-  #  scrapeConfigs = [
-  #    {
-  #      job_name = "prometheus";
-  #      static_configs = [
-  #        {
-  #          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-  #        }
-  #      ];
-  #      scrape_interval = "3s";
-  #    }
-  #  ];
-  #  exporters.node = {
-  #    enable = true;
-  #    enabledCollectors = [ "systemd" ];
-  #    port = 9002;
-  #  };
-  #};
+  services.prometheus = {
+      scrapeConfigs = [
+        {
+          job_name = "node";
+          static_configs = [
+            {
+              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            }
+          ];
+          scrape_interval = "3s";
+        }
+      ];
 
-  # Enable Local Grafana Service
-  #services.grafana = {
-  #  enable = true;
-  #  settings = {
-  #    server = {
-  #      http_port = 2342;
-  #      http_addr = "127.0.0.1";
-  #    };
-  #  };
-  #};
+      exporters.node = {
+        enable = true;
+        port = 9002;
 
+        # Updated list of enabled collectors
+        enabledCollectors = [
+          "ethtool"
+          "softirqs"
+          "systemd"
+          "tcpstat"
+          "wifi" # May or may not produce metrics depending on system/NixOS implementation
+        ];
+      };
+  };
 
   # Enable the OpenSSH SSH Agent
   programs.ssh.startAgent = true;

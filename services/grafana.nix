@@ -13,45 +13,10 @@
             job_name = "prometheus";
             static_configs = [{ targets = [ "192.168.0.107:7776" ]; }];
           }
-          {
-            job_name = "sonarr-exporter";
-            static_configs = [{ targets = [ "192.168.0.107:9707" ]; }];
-          }
-          {
-            job_name = "radarr-exporter";
-            static_configs = [{ targets = [ "192.168.0.107:9708" ]; }];
-          }
-          {
-            job_name = "prowlarr-exporter";
-            static_configs = [{ targets = [ "192.168.0.107:9709" ]; }];
-          }
         ];
         exporters = {
-          exportarr-sonarr = {
-            enable = true;
-            url = "http://192.168.0.107:8989";
-            port = 9707;
-            environment = {
-              API_KEY = "e87ea4c62fc44190af213487851231c0";
-            };
-          };
-          exportarr-radarr = {
-            enable = true;
-            url = "http://192.168.0.107:7878";
-            port = 9708;
-            environment = {
-              API_KEY = "a7c11c093c454970a2c2eefcde84e661";
-            };
-          };
-          exportarr-prowlarr = {
-            enable = true;
-            url = "http://192.168.0.107:9696";
-            port = 9709;
-            environment = {
-              API_KEY = "1dd4b43be03848afaa3f065e686cadc1";
-              PROWLARR__BACKFILL = "true";
-            };
-          };
+          nodeExporter.enable = true;
+          nodeExporter.port = 9100;
         };
       };
       system.stateVersion = "24.11";
