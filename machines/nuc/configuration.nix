@@ -77,6 +77,7 @@
     settings = {
       global = {
         security = "user";
+	"workgroup" = "WORKGROUP";
       };
       intenso = {
         path = "/mnt/intenso/";
@@ -98,6 +99,11 @@
       };
     };
 
+  };
+
+  services.samba-wsdd = {
+  	enable = true; # Enables Web Services Dynamic Discovery
+  	openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [

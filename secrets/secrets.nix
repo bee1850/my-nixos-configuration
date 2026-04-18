@@ -1,27 +1,29 @@
 let
-
-  githubKeys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN";
-  ];
-
-  prometheus = {
-    berkan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN";
-    host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+O0p1C/QW+IpwgUtv/Nr1sgUHgqIjw1qHQ6U6Nuw6H";
+ 
+  nuc = {
+    user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBc/+fAw+WNP2t1roeBnIjQOtMhsPtc1JrDb0V5BpPA";
+  
+    host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhD41sW9Wq9O+fQKf9lJ9NFe7R2AsWZiGCDcmtj0kTg";
   };
 
-  hosts = [ prometheus ];
+  hosts = [ nuc ];
 
   getUser = host: host.user;
   getHostPub = host: host.host;
   getAllKeysForHOst = host: [ (getUser host) (getHostPub host) ];
 
   knownUsers = (builtins.map getUser hosts);
-  users = githubKeys ++ knownUsers;
+  # users = githubKeys ++ knownUsers;
   systems = (builtins.map getHostPub hosts);
-  allKeys = users ++ systems;
+  allKeys = systems; # users ++ systems;
 
 
 in
 {
-  "berkan-pw.age".publicKeys = allKeys;
+  "nextcloud-admin-pass.age".publicKeys = allKeys;
+  "nextcloud-s3-secret.age".publicKeys = allKeys;
+  "minio-root-creds.age".publicKeys = allKeys;
+  "nextcloud-sse-key.age".publicKeys = allKeys;
+  "certificate.age".publicKeys = allKeys;
+  "certificateKey.age".publicKeys = allKeys;
 }
