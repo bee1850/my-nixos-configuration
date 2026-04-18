@@ -44,7 +44,6 @@
         modules = [
           ./machines/all
           ./machines/nuc/configuration.nix
-          ./services/home-assistant.nix
           agenix.nixosModules.default
           {
             environment.systemPackages = [ agenix.packages.${system}.default ];
