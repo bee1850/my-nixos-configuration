@@ -110,6 +110,7 @@
     wireguard-tools
     tailscale
     wakeonlan
+    codex
   ];
 
   services.clamav.daemon.enable = lib.mkForce false; # Currently /dev/sdb is way to big to be scanned by ClamAV
