@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ outputs, config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -111,7 +111,7 @@
     wireguard-tools
     tailscale
     wakeonlan
-    outputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.codex
+    pkgs.unstable.codex
   ];
 
   services.clamav.daemon.enable = lib.mkForce false; # Currently /dev/sdb is way to big to be scanned by ClamAV

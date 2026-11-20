@@ -9,5 +9,9 @@ self: super: {
     system = self.system;
     config.allowUnfree = true;
   };
+  unstable = import inputs.nixpkgs {
+    system = self.system;
+    config.allowUnfree = true;
+  };
 }
 
