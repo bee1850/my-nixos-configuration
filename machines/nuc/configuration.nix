@@ -54,7 +54,7 @@
     enableOnBoot = true;
     daemon.settings = {
       "metrics-addr" = "127.0.0.1:9323";
-    };
+    };    
     autoPrune = {
       enable = true;
       flags = [ "-all" ];
@@ -127,7 +127,7 @@
 
   # enable NAT
   networking.nat.enable = true;
-  networking.nat.externalInterface = "eth0";
+  networking.nat.externalInterface = "eno1";
 
   # enable the tailscale service
   services.tailscale = {
