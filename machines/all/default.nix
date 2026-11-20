@@ -55,12 +55,13 @@
   users.users.berkan = {
     isNormalUser = true;
     description = "Berkan E.";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVcE4X0CHiRy1GYX00HnUu7u1qgWZBcZaVYf3BzhSvN"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjO8XQy9w6Yas1DaTq+4vhWiFeyz6uZcngaHkIeUwf8"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICjtJi8Rbvbe0xEAhMRTZj7f8mOtpBtT5VJj+QB5dDSg"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGakR63jq5vJmEVMzNvnJ4vpm0lQHR+saaAOdmD9xw13 berka@win11"
     ];
   };
 
